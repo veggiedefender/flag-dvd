@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    #flag {
+      --height: 400px;
+      --width: calc(var(--height) * 1.9);
+
+      width: var(--width);
+      height: var(--height);
+      background: repeating-linear-gradient(
+      #BF0A30,
+      #BF0A30 calc(100% / 13),
+      #FFFFFF calc(100% / 13),
+      #FFFFFF calc(100% / 13 * 2)
+      );
+    }
+
+    svg {
+      height: calc(100% * 7 / 13);
+      width: auto;
+    }
+  </style>
+</head>
+<body>
+  <div id="flag">
+    <svg width="2964" height="2100" viewBox="0 0 2964 2100" id="starbox">
+      <rect width="2964" height="2100" fill="#3c3b6e" id="starbg"/>
+      <g fill="#fff">
+      <g id="s18">
+      <g id="s9">
+      <g id="s5">
+      <g id="s4">
+      <path id="s" d="M247,90 317.534230,307.082039 132.873218,172.917961H361.126782L176.465770,307.082039z"/>
+      <use xlink:href="#s" y="420"/>
+      <use xlink:href="#s" y="840"/>
+      <use xlink:href="#s" y="1260"/>
+      </g>
+      <use xlink:href="#s" y="1680"/>
+      </g>
+      <use xlink:href="#s4" x="247" y="210"/>
+      </g>
+      <use xlink:href="#s9" x="494"/>
+      </g>
+      <use xlink:href="#s18" x="988"/>
+      <use xlink:href="#s9" x="1976"/>
+      <use xlink:href="#s5" x="2470"/>
+      </g>
+    </svg>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.6.1/randomColor.js"></script>
+  <script>
+    const flag = document.getElementById('flag')
+    const starbox = document.getElementById('starbox')
+    const starbg = document.getElementById('starbg')
+
+    let x = 1;
+    let y = 1;
+    let w = starbox.clientWidth
+    let h = starbox.clientHeight
+
+    let W = flag.clientWidth
+    let H = flag.clientHeight
+
+    let vx = 0.08;
+    let vy = 0.08;
+    let prev = performance.now()
+
+    function frame(timestamp) {
+      let dt = timestamp - prev
+
+      x += dt * vx
+      y += dt * vy
+
+      if (x <= 0 || x + w >= W) {
+        vx *= -1
+        starbg.style.fill = randomColor()
+      }
+
+      if (y <= 0 || y + h >= H) {
+        vy *= -1
+        starbg.style.fill = randomColor()
+      }
+
+      starbox.style.transform = `translate(${x}px, ${y}px)`
+
+      prev = timestamp
+
+      window.requestAnimationFrame(frame);
+    }
+
+    window.requestAnimationFrame(frame)
+  </script>
+</body>
+</html>

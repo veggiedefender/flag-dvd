@@ -56,16 +56,16 @@
     const starbox = document.getElementById('starbox')
     const starbg = document.getElementById('starbg')
 
-    let x = 1;
-    let y = 1;
-    let w = starbox.clientWidth
-    let h = starbox.clientHeight
+    let x = 1
+    let y = 1
+    const w = starbox.clientWidth
+    const h = starbox.clientHeight
 
-    let W = flag.clientWidth
-    let H = flag.clientHeight
+    const W = flag.clientWidth
+    const H = flag.clientHeight
 
-    let vx = 0.08;
-    let vy = 0.08;
+    let vx = 0.08
+    let vy = 0.08
     let prev
 
     function frame(timestamp) {
@@ -88,7 +88,7 @@
 
       prev = timestamp
 
-      window.requestAnimationFrame(frame);
+      window.requestAnimationFrame(frame)
     }
 
     window.setTimeout(

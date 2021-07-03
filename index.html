@@ -56,41 +56,50 @@
     const starbox = document.getElementById('starbox')
     const starbg = document.getElementById('starbg')
 
-    let x = 1
-    let y = 1
     const w = starbox.clientWidth
     const h = starbox.clientHeight
 
     const W = flag.clientWidth
     const H = flag.clientHeight
 
+    // Initial position is a little bit off from the corner so it doesn't get stuck
+    let x = 1
+    let y = 1
+
+    // Velocity empirically derived to be "pretty nice"
     let vx = 0.08
     let vy = 0.08
+
+    // Compute the new position based on the amount of time between the current frame and the last.
+    // This makes the speed of the animation constant regardless of the frame rate of the device.
+    // See https://gameprogrammingpatterns.com/game-loop.html
     let prev
 
     function frame(timestamp) {
       let dt = timestamp - prev
 
+      // Compute new position, clamped so the inner box doesn't leave the flag
       x = Math.max(0, Math.min(W - w, x + dt * vx))
       y = Math.max(0, Math.min(H - h, y + dt * vy))
+      starbox.style.transform = `translate(${x}px, ${y}px)`
 
+      // Hit left or right edge
       if (x <= 0 || x + w >= W) {
         vx *= -1
         starbg.style.fill = randomColor()
       }
 
+      // Hit top or bottom edge
       if (y <= 0 || y + h >= H) {
         vy *= -1
         starbg.style.fill = randomColor()
       }
 
-      starbox.style.transform = `translate(${x}px, ${y}px)`
-
       prev = timestamp
-
       window.requestAnimationFrame(frame)
     }
 
+    // Wait for 1 second for dramatic effect
     window.setTimeout(
       function() {
         prev = performance.now()

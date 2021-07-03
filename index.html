@@ -71,8 +71,8 @@
     function frame(timestamp) {
       let dt = timestamp - prev
 
-      x = Math.max(0, Math.min(W, x + dt * vx))
-      y = Math.max(0, Math.min(H, y + dt * vy))
+      x = Math.max(0, Math.min(W - w, x + dt * vx))
+      y = Math.max(0, Math.min(H - h, y + dt * vy))
 
       if (x <= 0 || x + w >= W) {
         vx *= -1

@@ -66,7 +66,7 @@
 
     let vx = 0.08;
     let vy = 0.08;
-    let prev = performance.now()
+    let prev
 
     function frame(timestamp) {
       let dt = timestamp - prev
@@ -91,7 +91,13 @@
       window.requestAnimationFrame(frame);
     }
 
-    window.requestAnimationFrame(frame)
+    window.setTimeout(
+      function() {
+        prev = performance.now()
+        window.requestAnimationFrame(frame)
+      },
+      1000
+    )
   </script>
 </body>
 </html>

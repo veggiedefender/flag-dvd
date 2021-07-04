@@ -25,8 +25,8 @@
 </head>
 <body>
   <div id="flag">
-    <svg width="2964" height="2100" viewBox="0 0 2964 2100" id="starbox">
-      <rect width="2964" height="2100" fill="#3c3b6e" id="starbg"/>
+    <svg width="2964" height="2100" viewBox="0 0 2964 2100" id="canton">
+      <rect width="2964" height="2100" fill="#3c3b6e" id="canton-bg"/>
       <g fill="#fff">
       <g id="s18">
       <g id="s9">
@@ -53,14 +53,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.6.1/randomColor.js"></script>
   <script>
     const flag = document.getElementById('flag')
-    const starbox = document.getElementById('starbox')
-    const starbg = document.getElementById('starbg')
-
-    const w = starbox.clientWidth
-    const h = starbox.clientHeight
+    const canton = document.getElementById('canton')
+    const cantonBg = document.getElementById('canton-bg')
 
     const W = flag.clientWidth
     const H = flag.clientHeight
+
+    const w = canton.clientWidth
+    const h = canton.clientHeight
 
     // Initial position is a little bit off from the corner so it doesn't get stuck
     let x = 1
@@ -78,21 +78,21 @@
     function frame(timestamp) {
       let dt = timestamp - prev
 
-      // Compute new position, clamped so the inner box doesn't leave the flag
+      // Compute new position, clamped so the canton doesn't leave the flag
       x = Math.max(0, Math.min(W - w, x + dt * vx))
       y = Math.max(0, Math.min(H - h, y + dt * vy))
-      starbox.style.transform = `translate(${x}px, ${y}px)`
+      canton.style.transform = `translate(${x}px, ${y}px)`
 
       // Hit left or right edge
       if (x <= 0 || x + w >= W) {
         vx *= -1
-        starbg.style.fill = randomColor()
+        cantonBg.style.fill = randomColor()
       }
 
       // Hit top or bottom edge
       if (y <= 0 || y + h >= H) {
         vy *= -1
-        starbg.style.fill = randomColor()
+        cantonBg.style.fill = randomColor()
       }
 
       prev = timestamp
